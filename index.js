@@ -2,7 +2,6 @@ const express = require('express');
 const cors = require('cors');
 const path = require('path');
 
-// Full Kode Di Github Saya : https://github.com/Lenwyy/
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -21,6 +20,7 @@ require('./ai/Thinkai')(app);
 
 // Import Berita
 require('./berita/liputan6')(app);
+require('./berita/cnn')(app);
 
 // Import Search
 require('./search/goodread')(app);
@@ -29,7 +29,6 @@ require('./search/rumaysho')(app);
 require('./search/surah')(app);
 require('./search/jadwalsholat')(app);
 
-// Full Kode Di Github Saya : https://github.com/Lenwyy/
 
 // Endpoint untuk halaman HTML utama
 app.get('/', (req, res) => {
