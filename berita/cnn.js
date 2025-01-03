@@ -4,9 +4,9 @@ const cheerio = require('cheerio');
 module.exports = function(app) {
 
   // Fungsi scraper liputan6
-  async function cnn() {
+  async function cnnindonesia() {
     try {
-      const AvoskyBaik = await axios.get('https://mdsay.xyz/api/v1?key=md&api=cnn-nasional');
+      const AvoskyBaik = await axios.get('https://www.cnnindonesia.com/');
       const $ = cheerio.load(AvoskyBaik.data);
 
       const latestNews = $('.articles--iridescent-list').eq(2).find('article');
@@ -14,15 +14,12 @@ module.exports = function(app) {
 
       latestNews.each(function () {
         try {
-          const berita = $(this).find('figure a').attr('berita');
           const title = $(this).find('figure a').attr('title');
-          const date = $(this).find('figure a').attr('date');
-          const thumbnail = $(this).find('figure a picture thumbnail').attr('data-src');
-          const caption = $(this).find('figure a').attr('caption');
-          const url = $(this).find('figure a').attr('url')
-          const text = $(this).find('figure a').attr('text')
+          const link = $(this).find('figure a').attr('href');
+          const image = $(this).find('figure a picture img').attr('data-src');
+          const tag = $(this).find('aside header a').text();
 
-          results.push({ berita, title, date, thumbnail, caption, url, text, source: 'cnn' });
+          results.push({ title, link, tag, image, source: 'liputan6' });
         } catch (e) {
           console.error('Error scraping article:', e);
         }
@@ -36,7 +33,7 @@ module.exports = function(app) {
   }
 
   // Endpoint untuk scraper liputan6
-  app.get('/cnn', async (req, res) => {
+  app.get('/cnnindonesia', async (req, res) => {
     try {
       const data = await liputan6();
       if (data.length === 0) {
