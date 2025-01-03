@@ -20,7 +20,7 @@ require('./ai/Thinkai')(app);
 
 // Import Berita
 require('./berita/liputan6')(app);
-require('./berita/cnn')(app);
+require('./berita/cnnindonesia')(app);
 
 // Import Search
 require('./search/goodread')(app);
